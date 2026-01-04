@@ -14,6 +14,8 @@ public class ImageManipulation {
         grayScale("cyberpunk2077.jpg");
         blackAndWhite("cyberpunk2077.jpg");
         edgeDetection("cyberpunk2077.jpg", 20);
+        reflectImage("cyberpunk2077.jpg");
+        rotateImage("cyberpunk2077.jpg");
     }
 
     /** CHALLENGE ONE: Grayscale
@@ -101,38 +103,40 @@ public class ImageManipulation {
      *  */
         public static void edgeDetection(String pathToFile, int threshold) {
             APImage myImage = new APImage(pathToFile);
+            APImage finalImage = new APImage(pathToFile);
             for (int i = 1; i<myImage.getWidth(); i++){
                 for (int j = 0; j<myImage.getHeight()-1; j++) {
                     Pixel current = myImage.getPixel(i,j);
                     Pixel left = myImage.getPixel(i-1,j);
                     Pixel below = myImage.getPixel(i,j+1);
-                int avgCurrent = getAverageColour(current);
-                int avgLeft = getAverageColour(left);
-                int avgBelow = getAverageColour(below);
-                int diffLeft;
-                int diffBelow;
-                if (avgCurrent > avgLeft) {
-                    diffLeft = avgCurrent-avgLeft;
-                } else {
-                    diffLeft = avgLeft-avgCurrent;
-                }
-                if (avgCurrent > avgBelow) {
-                    diffBelow = avgCurrent-avgBelow;
-                } else {
-                    diffBelow = avgBelow-avgCurrent;
-                }
-                if (diffLeft>threshold || diffBelow>threshold){
-                    current.setRed(0);
-                    current.setBlue(0);
-                    current.setGreen(0);
-                } else {
-                    current.setRed(255);
-                    current.setBlue(255);
-                    current.setGreen(255);
+                    Pixel finalPixel = finalImage.getPixel(i,j);
+                    int avgCurrent = getAverageColour(current);
+                    int avgLeft = getAverageColour(left);
+                    int avgBelow = getAverageColour(below);
+                    int diffLeft;
+                    int diffBelow;
+                    if (avgCurrent > avgLeft) {
+                        diffLeft = avgCurrent-avgLeft;
+                    } else {
+                        diffLeft = avgLeft-avgCurrent;
+                    }
+                    if (avgCurrent > avgBelow) {
+                        diffBelow = avgCurrent-avgBelow;
+                    } else {
+                        diffBelow = avgBelow-avgCurrent;
+                    }
+                    if (diffLeft>threshold || diffBelow>threshold){
+                        finalPixel.setRed(0);
+                        finalPixel.setBlue(0);
+                        finalPixel.setGreen(0);
+                    } else {
+                        finalPixel.setRed(255);
+                        finalPixel.setBlue(255);
+                        finalPixel.setGreen(255);
                 }
             }
         }
-        myImage.draw();
+        finalImage.draw();
     }
 
     /** CHALLENGE Four: Reflect Image
@@ -142,7 +146,14 @@ public class ImageManipulation {
      *
      */
     public static void reflectImage(String pathToFile) {
-
+        APImage myImage = new APImage(pathToFile);
+        APImage finalImage = new APImage(pathToFile);
+        for (int i = 0; i<myImage.getWidth(); i++) {
+            for (int j = 0; j<myImage.getHeight(); j++) {
+                finalImage.setPixel(i,j,myImage.getPixel(myImage.getWidth()-1-i,j));
+            }
+        }
+        finalImage.draw();
     }
 
     /** CHALLENGE Five: Rotate Image
@@ -152,7 +163,13 @@ public class ImageManipulation {
      *
      *  */
     public static void rotateImage(String pathToFile) {
-
+        APImage myImage = new APImage(pathToFile);
+        APImage rotatedImage = new APImage(myImage.getHeight(), myImage.getWidth());
+        for (int i = 0; i<myImage.getHeight(); i++) {
+            for (int j = 0; j<myImage.getWidth(); j++) {
+                rotatedImage.setPixel(i,j,myImage.getPixel(j,i));
+            }
+        }
+        rotatedImage.draw();
     }
-
 }
