@@ -99,42 +99,36 @@ public class ImageManipulation {
      * For example, we could apply edge detection to an image using a threshold of 20 OR we could apply
      * edge detection to an image using a threshold of 35
      *  */
-    public static void edgeDetection(String pathToFile, int threshold) {
-        APImage myImage = new APImage(pathToFile);
-        for (int i = 0; i<myImage.getWidth(); i++){
-            if (i == 0) {
-                for (int j = 1; j<myImage.getHeight(); j++){
-                    Pixel pixel1 = myImage.getPixel(i,j);
-                    Pixel pixel3 = myImage.getPixel(i,j-1);
-                    int avg1 = getAverageColour(pixel1);
-                    int avg3 = getAverageColour(pixel3);
-                    if (avg1-avg3>threshold || avg3-avg1>threshold){
-                        pixel1.setRed(0);
-                        pixel1.setBlue(0);
-                        pixel1.setGreen(0);
-                    } else {
-                        pixel1.setRed(255);
-                        pixel1.setBlue(255);
-                        pixel1.setGreen(255);
-                    }
+        public static void edgeDetection(String pathToFile, int threshold) {
+            APImage myImage = new APImage(pathToFile);
+            for (int i = 1; i<myImage.getWidth(); i++){
+                for (int j = 0; j<myImage.getHeight()-1; j++) {
+                    Pixel current = myImage.getPixel(i,j);
+                    Pixel left = myImage.getPixel(i-1,j);
+                    Pixel below = myImage.getPixel(i,j+1);
+                int avgCurrent = getAverageColour(current);
+                int avgLeft = getAverageColour(left);
+                int avgBelow = getAverageColour(below);
+                int diffLeft;
+                int diffBelow;
+                if (avgCurrent > avgLeft) {
+                    diffLeft = avgCurrent-avgLeft;
+                } else {
+                    diffLeft = avgLeft-avgCurrent;
                 }
-            } else {
-                for (int j = 1; j<myImage.getHeight(); j++){
-                    Pixel pixel1 = myImage.getPixel(i,j);
-                    Pixel pixel2 = myImage.getPixel(i-1,j);
-                    Pixel pixel3 = myImage.getPixel(i,j-1);
-                    int avg1 = getAverageColour(pixel1);
-                    int avg2 = getAverageColour(pixel2);
-                    int avg3 = getAverageColour(pixel3);
-                    if (avg1-avg2>threshold || avg2-avg1>threshold || avg1-avg3>threshold || avg3-avg1>threshold){
-                        pixel1.setRed(0);
-                        pixel1.setBlue(0);
-                        pixel1.setGreen(0);
-                    } else {
-                        pixel1.setRed(255);
-                        pixel1.setBlue(255);
-                        pixel1.setGreen(255);
-                    }
+                if (avgCurrent > avgBelow) {
+                    diffBelow = avgCurrent-avgBelow;
+                } else {
+                    diffBelow = avgBelow-avgCurrent;
+                }
+                if (diffLeft>threshold || diffBelow>threshold){
+                    current.setRed(0);
+                    current.setBlue(0);
+                    current.setGreen(0);
+                } else {
+                    current.setRed(255);
+                    current.setBlue(255);
+                    current.setGreen(255);
                 }
             }
         }
