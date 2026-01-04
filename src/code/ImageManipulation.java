@@ -2,6 +2,7 @@ package code;
 
 import image.APImage;
 import image.Pixel;
+import static java.lang.Math.sqrt;
 
 public class ImageManipulation {
 
@@ -16,6 +17,7 @@ public class ImageManipulation {
         edgeDetection("cyberpunk2077.jpg", 20);
         reflectImage("cyberpunk2077.jpg");
         rotateImage("cyberpunk2077.jpg");
+        darknessGradient("cyberpunk2077.jpg");
     }
 
     /** CHALLENGE ONE: Grayscale
@@ -171,5 +173,22 @@ public class ImageManipulation {
             }
         }
         rotatedImage.draw();
+    }
+
+    public static void darknessGradient(String pathToFile) {
+        APImage myImage = new APImage(pathToFile);
+        for (int i = 0; i<myImage.getWidth(); i++) {
+            for (int j = 0; j<myImage.getHeight(); j++) {
+                Pixel myPixel = myImage.getPixel(i,j);
+                double factor = 1-(j/(double)myImage.getHeight());
+                double red = myPixel.getRed()*factor;
+                double green = myPixel.getGreen()*factor;
+                double blue = myPixel.getBlue()*factor;
+                myPixel.setRed((int)red);
+                myPixel.setGreen((int)green);
+                myPixel.setBlue((int)blue);
+            }
+        }
+        myImage.draw();
     }
 }

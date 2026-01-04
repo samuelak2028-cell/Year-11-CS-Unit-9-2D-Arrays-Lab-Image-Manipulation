@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65557ac9-effe-4032-98d9-b67ae953d01e" name="Changes" comment="Finished traceedge">
+    <list default="true" id="65557ac9-effe-4032-98d9-b67ae953d01e" name="Changes" comment="All finished">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/code/ImageManipulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/ImageManipulation.java" afterDir="false" />
     </list>
@@ -176,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767507141666</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="All finished">
+      <option name="closed" value="true" />
+      <created>1767509884847</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1767509884847</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -195,6 +203,7 @@
     <MESSAGE value="Added APImage, ImageFieFilter, ImagePanel, and Pixel classes." />
     <MESSAGE value="Done up to trace edge" />
     <MESSAGE value="Finished traceedge" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished traceedge" />
+    <MESSAGE value="All finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="All finished" />
   </component>
 </project>
